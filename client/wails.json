@@ -1,0 +1,13 @@
+{
+  "name": "设备发现工具",
+  "outputfilename": "设备发现工具",
+  "frontend:install": "yarn",
+  "frontend:build": "quasar build",
+  "frontend:dev:watcher": "quasar dev",
+  "frontend:dev:serverUrl": "http://localhost:9000",
+  "wailsjsdir": "./frontend/src/api",
+  "author": {
+    "name": "morax",
+    "email": "ld.seraph@163.com"
+  }
+}
