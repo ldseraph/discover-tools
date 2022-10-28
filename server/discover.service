@@ -1,0 +1,15 @@
+[Unit]   
+Description=discover tools 
+After=network.target
+
+[Service] 
+Type=simple
+User=root    	
+KillMode=control-group
+Restart=always
+RestartSec=10
+StartLimitInterval=0
+ExecStart = /usr/local/bin/discover-service
+
+[Install]
+WantedBy=multi-user.target

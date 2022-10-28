@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"embed"
 
 	"github.com/wailsapp/wails/v2"
@@ -10,21 +11,33 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
-func main() {
-	// Create an instance of the app structure
-	app := NewApp()
+type Module interface {
+	OnStartup(ctx context.Context)
+}
 
-	// Create application with options
+var binds []interface{}
+
+func RegistryModule(m Module) {
+	binds = append(binds, m)
+}
+
+func main() {
+
 	err := wails.Run(&options.App{
-		Title:     "myproject",
-		Width:     1024,
-		Height:    768,
-		Assets:    assets,
-		OnStartup: app.startup,
-		Frameless: true,
-		Bind: []interface{}{
-			app,
+		Title:  "设备发现工具",
+		Width:  1024,
+		Height: 768,
+		Assets: assets,
+		OnStartup: func(ctx context.Context) {
+			for _, b := range binds {
+				m, isModule := b.(Module)
+				if isModule {
+					m.OnStartup(ctx)
+				}
+			}
 		},
+		Frameless: true,
+		Bind:      binds,
 	})
 
 	if err != nil {

@@ -1,0 +1,4 @@
+#!/bin/sh -e
+systemctl daemon-reload
+systemctl enable discover.service
+systemctl start discover.service

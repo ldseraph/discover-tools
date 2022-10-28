@@ -1,0 +1,5 @@
+Package: discover-service
+Version: 0.0.1
+Section: unknown
+Priority: optional
+Architecture: arm64
